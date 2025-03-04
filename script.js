@@ -5,6 +5,11 @@ const buttonSum = document.querySelector('.button-sum')
 const buttonFilter = document.querySelector('.button-filter')
 
 
+function formatCurrency(value){
+    const newValue = value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    return newValue
+}
+
 // ForEach
 function showAll(productArray) { //ProductArray --> para poder reutilizar a função
     let myLi = '' //sem valor inicial na li
@@ -15,7 +20,7 @@ function showAll(productArray) { //ProductArray --> para poder reutilizar a fun�
             `<li>
         <img src= ${product.src}>
         <p> ${product.name}</p>
-        <p class="preço">R$ ${product.price} </p>
+        <p class="preço"> ${formatCurrency(product.price)} </p>
      </li>`
         listProduct.innerHTML = myLi
     })
@@ -27,7 +32,7 @@ function calculateDiscount() {
 
     const newPrice = menuOptions.map((product) => ({ 
         ...product, //esparramar os itens do array aqui dentro
-        price: product.price * 0.9 //aqui é o unico que vai ser alterado
+        price: product.price * 0.9//aqui é o unico que vai ser alterado
     }))
     console.log(newPrice)
 
@@ -38,13 +43,14 @@ function calculateDiscount() {
             `<li>
         <img src= ${product.src}>
         <p> ${product.name}</p>
-        <p class="preço">R$ ${product.price} </p>
+        <p class="preço"> ${formatCurrency(product.price)} </p>
      </li>`
         listProduct.innerHTML = myLi
     })
 
 }
 
+// valor total
 function sum(){
 
 
@@ -52,9 +58,10 @@ function sum(){
         return acumulador + product.price
     },0)
 
-    listProduct.innerHTML = `<li> <p class="preço">A soma de todos os itens do menu é: R$ ${finalPrice} </p> </li>`
+    listProduct.innerHTML = `<li> <p class="preço">A soma de todos os itens do menu é: ${formatCurrency(finalPrice)} </p> </li>`
 }
 
+// filtro
 function filterAllItens() {
     const filterProduct = menuOptions.filter((product) => product.vegan === true);
     
@@ -66,7 +73,7 @@ function filterAllItens() {
             `<li>
         <img src= ${product.src}>
         <p> ${product.name}</p>
-        <p class="preço">R$ ${product.price} </p>
+        <p class="preço"> ${formatCurrency(product.price)} </p>
      </li>`
         listProduct.innerHTML = myLi
     })
